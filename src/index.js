@@ -1,9 +1,17 @@
+const cors = require('cors');
 require('dotenv').config();
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const pool = require('./db');
 const { authenticate, authorizeRoles } = require('./middleware/auth');
+
+app.use(cors({
+  origin: '*', // ⚠️ for dev only — allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+
 
 const app = express();
 app.use(express.json());
@@ -58,10 +66,4 @@ app.listen(PORT, () => {
 });
 
 
-const cors = require('cors');
 
-app.use(cors({
-  origin: '*', // ⚠️ for dev only — allow all origins
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
