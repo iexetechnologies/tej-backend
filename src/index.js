@@ -4,6 +4,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const pool = require('./db');
+const auth = require('./middleware/auth');
 const { authenticate, authorizeRoles } = require('./middleware/auth');
 
 
@@ -50,15 +51,18 @@ app.post('/login', async (req, res) => {
   res.json({ token });
 });
 
-// Admin route
-app.get('/admin', authenticate, authorizeRoles('admin'), (req, res) => {
-  res.json({ msg: 'Hello Admin!' });
+
+
+//User
+app.get('/user', auth, (req, res) => {
+  res.json({
+    username: req.user.username,
+    role: req.user.role
+  });
 });
 
-// User route
-app.get('/dashboard', authenticate, authorizeRoles('user', 'admin'), (req, res) => {
-  res.json({ msg: `Hello ${req.user.role}` });
-});
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
