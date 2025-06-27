@@ -6,16 +6,16 @@ const jwt = require('jsonwebtoken');
 const pool = require('./db');
 const { authenticate, authorizeRoles } = require('./middleware/auth');
 
-app.use(cors({
-  origin: '*', // ⚠️ for dev only — allow all origins
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
 
 
 const app = express();
 app.use(express.json());
 
+app.use(cors({
+  origin: '*', // ⚠️ for dev only — allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 console.log("🔍 DATABASE_URL from env:", process.env.DATABASE_URL);
 
 
