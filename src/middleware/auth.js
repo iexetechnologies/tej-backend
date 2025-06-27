@@ -14,6 +14,12 @@ function authenticate(req, res, next) {
   }
 }
 
+// app.get('/admin', auth, (req, res) => {
+//   if (req.user.role !== 'admin') return res.status(403).send('Access denied');
+//   res.send('Hello Admin 👑');
+// });
+
+
 function authorizeRoles(...roles) {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
